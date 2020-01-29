@@ -13,6 +13,7 @@ class Node:
         self.y = y
         self.loc = loc
         self.distance_End = 0
+        self.path_to_here = 0
         self.next = []
 visited = {}
 BreakTheWorld = False
@@ -116,19 +117,23 @@ def findPath(node,path, end, length, count, final_distance):
         return
     else:
         visited[node.loc] = True
+    #####################################################################################################
     #create the node list and tell the code which nodes come first with respect to the estimated distance
     move = []
     for y in node.next:
         move.append(y)
     for z in range(0, len(move)-1):
         for x in range(0, len(move)-1):
-            if move[x].distance_End > move[x+1].distance_End:
+            move[x].path_to_here = move[x].distance_End + final_distance + distance(node.x, node.y, move[x].x, move[x].y)
+            move[x+1].path_to_here = move[x+1].distance_End + final_distance + distance(node.x, node.y, move[x].x, move[x].y)
+            if move[x].path_to_here > move[x+1].path_to_here:
                 tmp = move[x+1]
                 move[x+1] = move[x]
                 move[x] = tmp
     print("The order for " + str(node.loc) + " to check is: ")
     for order in move:
-        print(order.loc)
+        print(order.loc + " with current distance " + str(final_distance + distance(node.x, node.y, order.x, order.y)) + " with estimated distance: " + str(order.path_to_here))
+    print("\n")
     ######################################################################################################
 
     for tmp in node.next:
