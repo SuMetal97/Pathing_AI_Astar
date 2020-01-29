@@ -52,7 +52,7 @@ def main():
         if loc == 'END':
             break
         count = int(line[1])
-        order = []
+        
         for k in range(count+1):
             for x in range(count+1):
                 if (x == 0):
@@ -116,6 +116,21 @@ def findPath(node,path, end, length, count, final_distance):
         return
     else:
         visited[node.loc] = True
+    #create the node list and tell the code which nodes come first with respect to the estimated distance
+    move = []
+    for y in node.next:
+        move.append(y)
+    for z in range(0, len(move)-1):
+        for x in range(0, len(move)-1):
+            if move[x].distance_End > move[x+1].distance_End:
+                tmp = move[x+1]
+                move[x+1] = move[x]
+                move[x] = tmp
+    print("The order for " + str(node.loc) + " to check is: ")
+    for order in move:
+        print(order.loc)
+    ######################################################################################################
+
     for tmp in node.next:
         #Find the right path via DFS constraints given
         final_distance += distance(node.x, node.y, tmp.x, tmp.y)
