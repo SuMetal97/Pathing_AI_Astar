@@ -34,14 +34,14 @@ class Map():
         #Maps a node to its location
         loc = open(loc_file, 'r')
         for x in loc:
-            line = x.rstrip('\n')#rstrip
+            line = x.rstrip('\n') #rstrip
             formatted_line = line.split()
             self.locate[formatted_line[0]]= formatted_line[1:]
         del self.locate["END"] 
         #Maps a node to its connection
         con = open(con_file, 'r')
         for x in con:
-            line = x.rstrip('\n')#rstrip
+            line = x.rstrip('\n') #rstrip
             formatted_line = line.split()
             self.connect[formatted_line[0]]= formatted_line[2:]
         del self.connect["END"]
